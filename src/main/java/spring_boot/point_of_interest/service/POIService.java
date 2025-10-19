@@ -22,7 +22,6 @@ public class POIService {
         newPOI.setName(request.name());
         newPOI.setXCoord(request.xCoord());
         newPOI.setYCoord(request.yCoord());
-
         return poiRepository.save(newPOI);
     }
 
@@ -30,20 +29,21 @@ public class POIService {
         return poiRepository.findAll();
     }
 
-    public List<PoiDTO> getAllByProximity(NearPOIRequest request) {
+    public List<POI> getByProximity(NearPOIRequest request) {
         List<POI> pois = getAll();
-        List<PoiDTO> poisResponse = new ArrayList<>();
+        List<POI> nearPois = new ArrayList<>();
 
         for (POI p : pois) {
             double x = p.getXCoord();
             double y = p.getYCoord();
 
             double distance = Math.hypot(x - request.xCoord(), y - request.yCoord());
+
             if (distance <= request.maxDistance()) {
-                poisResponse.add(new PoiDTO(p.getName(), x, y));
+                nearPois.add(p);
             }
         }
 
-        return poisResponse;
+        return nearPois;
     }
 }
