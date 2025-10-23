@@ -1,5 +1,7 @@
 package spring_boot.point_of_interest.dto;
 
-public record NearPOIRequest(Double maxDistance, Double xCoord, Double yCoord) {
+import jakarta.validation.constraints.Positive;
+
+public record NearPOIRequest(Double maxDistance, @Positive Double xCoord, @Positive Double yCoord) {
     
 }

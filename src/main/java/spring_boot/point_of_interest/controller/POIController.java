@@ -43,7 +43,7 @@ public class POIController {
     }
     
     @PostMapping("/proximity")
-    public ResponseEntity<List<PoiDTO>> getByProximity(@RequestBody NearPOIRequest request) {
+    public ResponseEntity<List<PoiDTO>> getByProximity(@RequestBody @Valid NearPOIRequest request) {
         List<POI> pois = poiService.getByProximity(request);
         List<PoiDTO> poisResponse = new ArrayList<>();
 
